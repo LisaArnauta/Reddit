@@ -14,15 +14,16 @@ async def get_reddit_top(subreddit):
     # url pattern - f'https://www.reddit.com/r/{subreddit}/top.json?sort=top&t=day&limit=5'
 
     # then unpack data to json:
+    
     j = json.loads(data)
     for i in j['data']['children']:
         score = i['data']['score']
         title = i['data']['title']
         link = i['data']['url']
-        top = {title :{'score': int(score),'link':str(link)}}
-        dep_top = {subreddit : top}
+        reddit_top = {title :{'score': int(score),'link':str(link)}}
+        top = {subreddit : reddit_top}
 
-        return  dep_top
+        return  top
 
     # % reddit_name %: {
     #     %post_title%: {
