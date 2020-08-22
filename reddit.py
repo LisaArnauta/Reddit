@@ -20,12 +20,8 @@ async def get_reddit_top(subreddit):
         score = i['data']['score']
         title = i['data']['title']
         link = i['data']['url']
-        reddit_top = {title :{'score': int(score),'link':str(link)}}
-        top = {subreddit : reddit_top}
-
-        return  top
-
-    # % reddit_name %: {
+        
+# % reddit_name %: {
     #     %post_title%: {
     #         %score%: int,
     #         %link%: str
@@ -35,12 +31,20 @@ async def get_reddit_top(subreddit):
     #         %link%: str
     #     }
     # }
+    
+reddit_top = {title :{'score': int(score),'link':str(link)}}
+        top = {subreddit : reddit_top}
 
+        return  top
+    
 async def main():
     reddits = {
         "python",
         "compsci",
         "microbork"}
+    
+# use asyncio.gather to get tops for reddits "python", "compsci", "microbork"
+ # try to use *args instead of hardcoded function calls        
     res = await asyncio.gather(*(get_reddit_top(subreddit) for subreddit in reddits))
     print(res)
 
